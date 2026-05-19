@@ -1,30 +1,30 @@
 # Python APIs: Chuck Norris + OpenRouter
 
-Proyecto educativo en Python para aprender a consumir APIs REST, procesar respuestas JSON, manejar errores HTTP, trabajar con variables de entorno y enviar prompts a un modelo de IA mediante OpenRouter.
+Proyecto educativo en Python para aprender a consumir APIs REST, procesar respuestas JSON, manejar errores HTTP, trabajar con variables de entorno y enviar prompts personalizados a un modelo de IA mediante OpenRouter.
 
-El repositorio contiene ejemplos progresivos: primero se consume una API pública de chistes de Chuck Norris, luego se mejora el manejo de errores y traducción, finalmente se integra una API de inteligencia artificial usando OpenRouter y se agrega un menú interactivo para ejecutar los ejercicios desde consola.
+El repositorio contiene ejemplos progresivos: primero se consume una API pública de chistes de Chuck Norris, luego se mejora el manejo de errores y traducción, finalmente se integra una API de inteligencia artificial usando OpenRouter, se permite ingresar prompts por consola y se agrega un menú interactivo para ejecutar los ejercicios.
 
 ---
 
 ## Tabla de contenidos
 
-* [Descripción del proyecto](#descripción-del-proyecto)
-* [Objetivos de aprendizaje](#objetivos-de-aprendizaje)
-* [Tecnologías utilizadas](#tecnologías-utilizadas)
-* [Estructura del proyecto](#estructura-del-proyecto)
-* [Requisitos previos](#requisitos-previos)
-* [Instalación](#instalación)
-* [Uso de entorno virtual para aislar dependencias](#uso-de-entorno-virtual-para-aislar-dependencias)
-* [Configuración de variables de entorno](#configuración-de-variables-de-entorno)
-* [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
-* [Menú interactivo](#menú-interactivo)
-* [Explicación de los archivos](#explicación-de-los-archivos)
-* [Ejemplo de salida esperada](#ejemplo-de-salida-esperada)
-* [Manejo de errores](#manejo-de-errores)
-* [Buenas prácticas aplicadas](#buenas-prácticas-aplicadas)
-* [Posibles mejoras](#posibles-mejoras)
-* [Autor](#autor)
-* [Licencia](#licencia)
+- [Descripción del proyecto](#descripción-del-proyecto)
+- [Objetivos de aprendizaje](#objetivos-de-aprendizaje)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Requisitos previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Uso de entorno virtual para aislar dependencias](#uso-de-entorno-virtual-para-aislar-dependencias)
+- [Configuración de variables de entorno](#configuración-de-variables-de-entorno)
+- [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
+- [Menú interactivo](#menú-interactivo)
+- [Explicación de los archivos](#explicación-de-los-archivos)
+- [Ejemplo de salida esperada](#ejemplo-de-salida-esperada)
+- [Manejo de errores](#manejo-de-errores)
+- [Buenas prácticas aplicadas](#buenas-prácticas-aplicadas)
+- [Posibles mejoras](#posibles-mejoras)
+- [Autor](#autor)
+- [Licencia](#licencia)
 
 ---
 
@@ -32,15 +32,21 @@ El repositorio contiene ejemplos progresivos: primero se consume una API públic
 
 Este proyecto muestra cómo consumir servicios externos desde Python utilizando la librería `requests`.
 
-Incluye tres casos principales:
+Incluye cuatro casos principales:
 
 1. **Consumo de una API pública**
    Se obtiene un chiste aleatorio desde la API de Chuck Norris y se muestra su contenido en consola.
 
-2. **Consumo de una API de IA**
+2. **Consumo mejorado de una API pública**
+   Se obtiene un chiste aleatorio, se traduce al español y se manejan errores comunes al consumir APIs.
+
+3. **Consumo de una API de IA**
    Se realiza una petición a OpenRouter para enviar un prompt y obtener una respuesta generada por un modelo de lenguaje.
 
-3. **Ejecución mediante menú interactivo**
+4. **Prompt personalizado desde consola**
+   En la versión mejorada de OpenRouter, el usuario puede escribir su propio prompt desde la terminal antes de enviar la solicitud al modelo.
+
+5. **Ejecución mediante menú interactivo**
    Se agrega un archivo `menu.py` que permite elegir desde la terminal qué ejemplo ejecutar, sin escribir manualmente el nombre de cada script.
 
 Además, el proyecto incluye versiones mejoradas con manejo de errores, uso de funciones, clases personalizadas, logging, timeout y variables de entorno.
@@ -51,36 +57,38 @@ Además, el proyecto incluye versiones mejoradas con manejo de errores, uso de f
 
 Con este proyecto podrás practicar:
 
-* Consumo de APIs REST con Python.
-* Uso de métodos HTTP como `GET` y `POST`.
-* Lectura y procesamiento de respuestas JSON.
-* Validación de códigos de estado HTTP.
-* Manejo de errores con `try/except`.
-* Uso de variables de entorno con `.env`.
-* Envío de prompts a modelos de IA mediante OpenRouter.
-* Separación básica de responsabilidades en funciones.
-* Uso de `logging` para registrar información de ejecución.
-* Buenas prácticas para proteger API Keys.
-* Ejecución de scripts Python mediante un menú interactivo.
-* Uso de `subprocess` y `sys.executable` para ejecutar archivos desde otro script.
-* Uso de entorno virtual para aislar dependencias del proyecto.
+- Consumo de APIs REST con Python.
+- Uso de métodos HTTP como `GET` y `POST`.
+- Lectura y procesamiento de respuestas JSON.
+- Validación de códigos de estado HTTP.
+- Manejo de errores con `try/except`.
+- Uso de variables de entorno con `.env`.
+- Envío de prompts a modelos de IA mediante OpenRouter.
+- Entrada de datos por consola con `input()`.
+- Validación de prompts ingresados por el usuario.
+- Separación básica de responsabilidades en funciones.
+- Uso de `logging` para registrar información de ejecución.
+- Buenas prácticas para proteger API Keys.
+- Ejecución de scripts Python mediante un menú interactivo.
+- Uso de `subprocess` y `sys.executable` para ejecutar archivos desde otro script.
+- Uso de entorno virtual para aislar dependencias del proyecto.
 
 ---
 
 ## Tecnologías utilizadas
 
-| Tecnología       | Uso                                                   |
-| ---------------- | ----------------------------------------------------- |
-| Python           | Lenguaje principal del proyecto                       |
-| requests         | Consumo de APIs HTTP                                  |
-| python-dotenv    | Carga de variables desde archivo `.env`               |
-| deep-translator  | Traducción de texto desde inglés a español            |
-| OpenRouter API   | Acceso a modelos de inteligencia artificial           |
-| Chuck Norris API | API pública para obtener chistes aleatorios           |
-| Logging          | Registro de eventos y errores                         |
-| subprocess       | Ejecución de scripts Python desde el menú interactivo |
-| pathlib          | Manejo de rutas de archivos de forma portable         |
-| venv             | Creación de entorno virtual para aislar dependencias  |
+| Tecnología | Uso |
+|---|---|
+| Python | Lenguaje principal del proyecto |
+| requests | Consumo de APIs HTTP |
+| python-dotenv | Carga de variables desde archivo `.env` |
+| deep-translator | Traducción de texto desde inglés a español |
+| OpenRouter API | Acceso a modelos de inteligencia artificial |
+| Chuck Norris API | API pública para obtener chistes aleatorios |
+| Logging | Registro de eventos y errores |
+| subprocess | Ejecución de scripts Python desde el menú interactivo |
+| pathlib | Manejo de rutas de archivos de forma portable |
+| venv | Creación de entorno virtual para aislar dependencias |
 
 ---
 
@@ -118,6 +126,7 @@ __pycache__/                       # Caché generado por Python
 | `ejemplo.py`           | Versión mejorada del consumo de Chuck Norris API con traducción, `dataclass`, logging y manejo de errores. |
 | `ejemplo3.py`          | Ejemplo de consumo de OpenRouter usando variables de entorno desde `.env`.                                 |
 | `ejemplo3-mejorado.py` | Versión más estructurada para consumir OpenRouter usando funciones, excepciones personalizadas y logging.  |
+| `ejemplo3-mejorado_prompt.py` | Versión más estructurada para consumir OpenRouter usando funciones, excepciones personalizadas, logging y prompt ingresado por consola. |
 | `menu.py`              | Menú interactivo para elegir y ejecutar los ejemplos desde la terminal.                                    |
 | `.env.example`         | Plantilla de variables de entorno sin credenciales reales.                                                 |
 | `requirements.txt`     | Lista de dependencias necesarias para ejecutar el proyecto.                                                |
@@ -129,10 +138,10 @@ __pycache__/                       # Caché generado por Python
 
 Antes de ejecutar el proyecto necesitas tener instalado:
 
-* Python 3.10 o superior.
-* pip.
-* Acceso a internet.
-* Una API Key de OpenRouter, solo para ejecutar los ejemplos relacionados con IA.
+- Python 3.10 o superior.
+- pip.
+- Acceso a internet.
+- Una API Key de OpenRouter, solo para ejecutar los ejemplos relacionados con IA.
 
 Puedes verificar tu versión de Python con:
 
@@ -198,7 +207,7 @@ En Windows:
 Cuando el entorno virtual está activo, la terminal debería mostrar algo similar a:
 
 ```bash
-(.venv) user@MacBook-Pro Ejercicios_Python_API %
+(.venv) admin@admins-MacBook-Pro Ejercicios_Python_API %
 ```
 
 ### Instalar dependencias dentro del entorno virtual
@@ -311,17 +320,33 @@ Este script obtiene un chiste aleatorio, lo traduce al español y muestra la fue
 python ejemplo3.py
 ```
 
-Este script carga las variables desde el archivo `.env`, envía un prompt a OpenRouter y muestra la respuesta generada por el modelo.
+Este script carga las variables desde el archivo `.env`, envía un prompt fijo a OpenRouter y muestra la respuesta generada por el modelo.
 
 ---
 
-### Ejecutar versión mejorada de OpenRouter
+### Ejecutar versión mejorada de OpenRouter con prompt personalizado
 
 ```bash
 python ejemplo3-mejorado.py
 ```
 
-Esta versión organiza el código en funciones, valida la API Key, construye headers y payload por separado, maneja errores HTTP y extrae la respuesta del modelo.
+Esta versión organiza el código en funciones, valida la API Key, construye headers y payload por separado, maneja errores HTTP, solicita un prompt por consola y extrae la respuesta del modelo.
+
+Al ejecutar este archivo, el programa pedirá un prompt:
+
+```text
+Escribe el prompt que quieres enviar a OpenRouter.
+Ejemplo: Explica qué es una API en 3 líneas.
+Para cancelar, presiona Enter sin escribir nada.
+
+Prompt:
+```
+
+Ejemplo de prompt ingresado por el usuario:
+
+```text
+Dame 5 buenas prácticas para consumir APIs REST en Python
+```
 
 ---
 
@@ -356,7 +381,7 @@ Se mostrará un menú similar a este:
 1. Ejemplo 1 - Chuck Norris API básico
 2. Ejemplo 2 - Chuck Norris API exploración JSON
 3. Ejemplo 3 - OpenRouter básico con .env
-4. Ejemplo 4 - OpenRouter mejorado
+4. Ejemplo 4 - OpenRouter mejorado con prompt personalizado
 0. Salir
 ===================================
 ```
@@ -365,11 +390,11 @@ El usuario puede ingresar el número de la opción deseada y el menú ejecutará
 
 Este archivo utiliza:
 
-* `pathlib` para ubicar los archivos dentro del proyecto.
-* `subprocess.run()` para ejecutar cada script.
-* `sys.executable` para usar el mismo intérprete de Python del entorno virtual activo.
-* Validación básica para detectar si un archivo no existe.
-* Manejo de errores cuando un script termina con un código de salida distinto de cero.
+- `pathlib` para ubicar los archivos dentro del proyecto.
+- `subprocess.run()` para ejecutar cada script.
+- `sys.executable` para usar el mismo intérprete de Python del entorno virtual activo.
+- Validación básica para detectar si un archivo no existe.
+- Manejo de errores cuando un script termina con un código de salida distinto de cero.
 
 Ejemplo de uso:
 
@@ -461,6 +486,27 @@ Esta versión es la más cercana a una estructura reutilizable para futuros proy
 
 ---
 
+### `ejemplo3-mejorado_prompt.py`
+
+Versión estructurada del ejemplo de OpenRouter.
+
+Incluye:
+
+* Función `get_api_key()`.
+* Función `validate_config()`.
+* Función `build_headers()`.
+* Función `build_payload()`.
+* Función `send_request()`.
+* Función `extract_model_response()`.
+* Función `ask_model()`.
+* Función `read_user_prompt()` para solicitar un prompt desde consola.
+* Excepción personalizada `OpenRouterAPIError`.
+* Logging para registrar el estado de la ejecución.
+
+Esta versión permite que el usuario escriba su propio prompt en la terminal antes de enviar la solicitud a OpenRouter.
+
+---
+
 ### `menu.py`
 
 Archivo que funciona como punto de entrada interactivo del proyecto.
@@ -503,6 +549,26 @@ Define reglas para enviar solicitudes y recibir respuestas.
 Se usa para integrar servicios, datos o funcionalidades externas.
 ```
 
+### Para `ejemplo3-mejorado_prompt.py`
+
+```text
+Escribe el prompt que quieres enviar a OpenRouter.
+Ejemplo: Explica qué es una API en 3 líneas.
+Para cancelar, presiona Enter sin escribir nada.
+
+Prompt: Dame 5 buenas prácticas para consumir APIs REST en Python
+
+INFO - Código de estado recibido: 200
+
+Respuesta del modelo:
+-----------------------------------
+1. Usa timeouts en tus peticiones.
+2. Maneja errores HTTP con excepciones.
+3. Protege tus API Keys usando variables de entorno.
+4. Valida la estructura de las respuestas JSON.
+5. Separa la lógica de consumo de API en funciones reutilizables.
+```
+
 ### Para `menu.py`
 
 ```bash
@@ -513,13 +579,20 @@ Se usa para integrar servicios, datos o funcionalidades externas.
 2. Ejemplo 2 - Chuck Norris API exploración JSON
 3. Ejemplo 3 - OpenRouter básico con .env
 4. Ejemplo 4 - OpenRouter mejorado
+5. Ejemplo 5 - OpenRouter mejorado con prompt personalizado
 0. Salir
 ===================================
 
-Selecciona una opción: 1
+Selecciona una opción: 5
 
-Ejecutando: ejemplo.py
+Ejecutando: ejemplo3-mejorado_prompt.py
 -----------------------------------
+
+Escribe el prompt que quieres enviar a OpenRouter.
+Ejemplo: Explica qué es una API en 3 líneas.
+Para cancelar, presiona Enter sin escribir nada.
+
+Prompt:
 ```
 
 ---
@@ -528,13 +601,14 @@ Ejecutando: ejemplo.py
 
 El proyecto contempla errores comunes al consumir APIs:
 
-| Error                | Posible causa                                         | Solución                                               |
-| -------------------- | ----------------------------------------------------- | ------------------------------------------------------ |
-| `Timeout`            | La API tarda demasiado en responder                   | Aumentar el timeout o intentar más tarde               |
-| `HTTPError`          | La API responde con error 4xx o 5xx                   | Revisar URL, API Key o permisos                        |
-| `RequestException`   | Problema de conexión                                  | Verificar internet o disponibilidad del servicio       |
-| `KeyError`           | La respuesta JSON no tiene el campo esperado          | Revisar estructura de la respuesta                     |
-| `ValueError`         | JSON inválido o configuración faltante                | Validar `.env` y respuesta recibida                    |
+| Error | Posible causa | Solución |
+|---|---|---|
+| `Timeout` | La API tarda demasiado en responder | Aumentar el timeout o intentar más tarde |
+| `HTTPError` | La API responde con error 4xx o 5xx | Revisar URL, API Key o permisos |
+| `RequestException` | Problema de conexión | Verificar internet o disponibilidad del servicio |
+| `KeyError` | La respuesta JSON no tiene el campo esperado | Revisar estructura de la respuesta |
+| `ValueError` | JSON inválido o configuración faltante | Validar `.env` y respuesta recibida |
+| `OpenRouterAPIError` | Configuración faltante, prompt vacío o error controlado del consumo de OpenRouter | Revisar `.env`, API Key o ingresar un prompt válido |
 | `CalledProcessError` | Un script ejecutado desde `menu.py` terminó con error | Revisar el mensaje mostrado por el script seleccionado |
 
 ---
@@ -553,6 +627,8 @@ El proyecto contempla errores comunes al consumir APIs:
 * Menú interactivo como punto de entrada para mejorar la experiencia de uso.
 * Uso de `sys.executable` para respetar el entorno virtual activo.
 * Uso de `requirements.txt` para instalar dependencias de forma reproducible.
+* Lectura de prompts desde consola para hacer el ejemplo de IA más interactivo.
+* Validación de entrada vacía antes de enviar una solicitud al modelo.
 
 ---
 
@@ -560,7 +636,6 @@ El proyecto contempla errores comunes al consumir APIs:
 
 Algunas mejoras que se podrían agregar al proyecto:
 
-* Permitir que el usuario escriba su propio prompt por consola.
 * Guardar las respuestas en un archivo `.txt` o `.json`.
 * Agregar pruebas unitarias con `pytest`.
 * Crear una interfaz web simple con Streamlit o Flask.
