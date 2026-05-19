@@ -36,7 +36,7 @@ EXAMPLES = {
     },
      "5": {
         "name": "Ejemplo 5 - OpenRouter mejorado con prompt personalizado",
-        "file": "ejemplo3-mejorado.py",
+        "file": "ejemplo3-mejorado_prompt.py",
         "description": "Permite escribir un prompt por consola y enviarlo a OpenRouter."
     }
 }
