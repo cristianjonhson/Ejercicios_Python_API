@@ -1,5 +1,5 @@
 """
-Pruebas unitarias para main.py.
+Pruebas unitarias para menu.py.
 
 Valida que el menú principal tenga configuradas las opciones esperadas.
 """
@@ -12,7 +12,7 @@ def test_main_contains_expected_examples():
     Debe tener las opciones principales para ejecutar los ejercicios.
     """
 
-    module = load_module_from_file("main.py", "main_test_examples")
+    module = load_module_from_file("menu.py", "main_test_examples")
 
     assert "1" in module.EXAMPLES
     assert "2" in module.EXAMPLES
@@ -30,7 +30,7 @@ def test_read_option(monkeypatch):
     Debe leer la opción ingresada por consola.
     """
 
-    module = load_module_from_file("main.py", "main_test_read_option")
+    module = load_module_from_file("menu.py", "main_test_read_option")
 
     monkeypatch.setattr("builtins.input", lambda mensaje: "4")
 
