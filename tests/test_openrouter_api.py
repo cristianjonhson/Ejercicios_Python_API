@@ -12,7 +12,7 @@ from conftest import load_module_from_file
 
 def load_openrouter_module(monkeypatch, module_name: str):
     """
-    Carga ejemplo3-mejorado.py con variables de entorno simuladas.
+    Carga ejemplo3-mejorado_prompt.py con variables de entorno simuladas.
     """
 
     monkeypatch.setenv("OPENROUTER_API_KEY", "test-api-key")
@@ -26,7 +26,7 @@ def load_openrouter_module(monkeypatch, module_name: str):
     monkeypatch.setenv("TIMEOUT_SECONDS", "30")
     monkeypatch.setenv("MAX_TOKENS", "300")
 
-    return load_module_from_file("ejemplo3-mejorado.py", module_name)
+    return load_module_from_file("ejemplo3-mejorado_prompt.py", module_name)
 
 
 def test_get_api_key_success(monkeypatch):
