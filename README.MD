@@ -8,21 +8,23 @@ El repositorio contiene ejemplos progresivos: primero se consume una API públic
 
 ## Tabla de contenidos
 
-- [Descripción del proyecto](#descripción-del-proyecto)
-- [Objetivos de aprendizaje](#objetivos-de-aprendizaje)
-- [Tecnologías utilizadas](#tecnologías-utilizadas)
-- [Estructura del proyecto](#estructura-del-proyecto)
-- [Requisitos previos](#requisitos-previos)
-- [Instalación](#instalación)
-- [Configuración de variables de entorno](#configuración-de-variables-de-entorno)
-- [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
-- [Menú interactivo](#menú-interactivo)
-- [Explicación de los archivos](#explicación-de-los-archivos)
-- [Ejemplo de salida esperada](#ejemplo-de-salida-esperada)
-- [Manejo de errores](#manejo-de-errores)
-- [Buenas prácticas aplicadas](#buenas-prácticas-aplicadas)
-- [Posibles mejoras](#posibles-mejoras)
-- [Autor](#autor)
+* [Descripción del proyecto](#descripción-del-proyecto)
+* [Objetivos de aprendizaje](#objetivos-de-aprendizaje)
+* [Tecnologías utilizadas](#tecnologías-utilizadas)
+* [Estructura del proyecto](#estructura-del-proyecto)
+* [Requisitos previos](#requisitos-previos)
+* [Instalación](#instalación)
+* [Uso de entorno virtual para aislar dependencias](#uso-de-entorno-virtual-para-aislar-dependencias)
+* [Configuración de variables de entorno](#configuración-de-variables-de-entorno)
+* [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
+* [Menú interactivo](#menú-interactivo)
+* [Explicación de los archivos](#explicación-de-los-archivos)
+* [Ejemplo de salida esperada](#ejemplo-de-salida-esperada)
+* [Manejo de errores](#manejo-de-errores)
+* [Buenas prácticas aplicadas](#buenas-prácticas-aplicadas)
+* [Posibles mejoras](#posibles-mejoras)
+* [Autor](#autor)
+* [Licencia](#licencia)
 
 ---
 
@@ -49,34 +51,36 @@ Además, el proyecto incluye versiones mejoradas con manejo de errores, uso de f
 
 Con este proyecto podrás practicar:
 
-- Consumo de APIs REST con Python.
-- Uso de métodos HTTP como `GET` y `POST`.
-- Lectura y procesamiento de respuestas JSON.
-- Validación de códigos de estado HTTP.
-- Manejo de errores con `try/except`.
-- Uso de variables de entorno con `.env`.
-- Envío de prompts a modelos de IA mediante OpenRouter.
-- Separación básica de responsabilidades en funciones.
-- Uso de `logging` para registrar información de ejecución.
-- Buenas prácticas para proteger API Keys.
-- Ejecución de scripts Python mediante un menú interactivo.
-- Uso de `subprocess` y `sys.executable` para ejecutar archivos desde otro script.
+* Consumo de APIs REST con Python.
+* Uso de métodos HTTP como `GET` y `POST`.
+* Lectura y procesamiento de respuestas JSON.
+* Validación de códigos de estado HTTP.
+* Manejo de errores con `try/except`.
+* Uso de variables de entorno con `.env`.
+* Envío de prompts a modelos de IA mediante OpenRouter.
+* Separación básica de responsabilidades en funciones.
+* Uso de `logging` para registrar información de ejecución.
+* Buenas prácticas para proteger API Keys.
+* Ejecución de scripts Python mediante un menú interactivo.
+* Uso de `subprocess` y `sys.executable` para ejecutar archivos desde otro script.
+* Uso de entorno virtual para aislar dependencias del proyecto.
 
 ---
 
 ## Tecnologías utilizadas
 
-| Tecnología | Uso |
-|---|---|
-| Python | Lenguaje principal del proyecto |
-| requests | Consumo de APIs HTTP |
-| python-dotenv | Carga de variables desde archivo `.env` |
-| deep-translator | Traducción de texto desde inglés a español |
-| OpenRouter API | Acceso a modelos de inteligencia artificial |
-| Chuck Norris API | API pública para obtener chistes aleatorios |
-| Logging | Registro de eventos y errores |
-| subprocess | Ejecución de scripts Python desde el menú interactivo |
-| pathlib | Manejo de rutas de archivos de forma portable |
+| Tecnología       | Uso                                                   |
+| ---------------- | ----------------------------------------------------- |
+| Python           | Lenguaje principal del proyecto                       |
+| requests         | Consumo de APIs HTTP                                  |
+| python-dotenv    | Carga de variables desde archivo `.env`               |
+| deep-translator  | Traducción de texto desde inglés a español            |
+| OpenRouter API   | Acceso a modelos de inteligencia artificial           |
+| Chuck Norris API | API pública para obtener chistes aleatorios           |
+| Logging          | Registro de eventos y errores                         |
+| subprocess       | Ejecución de scripts Python desde el menú interactivo |
+| pathlib          | Manejo de rutas de archivos de forma portable         |
+| venv             | Creación de entorno virtual para aislar dependencias  |
 
 ---
 
@@ -84,9 +88,8 @@ Con este proyecto podrás practicar:
 
 ```bash
 .
-├── .venv                          # No subir a GitHub
-├── .env                           # No subir a GitHub
 ├── .gitignore
+├── .env.example                   # Plantilla de variables de entorno
 ├── ejemplo.py
 ├── ejemplo2.py
 ├── ejemplo3.py
@@ -96,17 +99,29 @@ Con este proyecto podrás practicar:
 └── requirements.txt
 ```
 
+### Archivos locales no versionados
+
+Estos archivos o carpetas se usan localmente, pero no deben subirse a GitHub:
+
+```bash
+.venv/                             # Entorno virtual local
+.env                               # Variables de entorno sensibles
+__pycache__/                       # Caché generado por Python
+*.pyc                              # Archivos compilados de Python
+```
+
 ### Descripción rápida
 
-| Archivo | Descripción |
-|---|---|
-| `ejemplo2.py` | Ejemplo inicial para consumir la API pública de Chuck Norris. |
-| `ejemplo.py` | Versión mejorada del consumo de Chuck Norris API con traducción, `dataclass`, logging y manejo de errores. |
-| `ejemplo3.py` | Ejemplo de consumo de OpenRouter usando variables de entorno desde `.env`. |
-| `ejemplo3-mejorado.py` | Versión más estructurada para consumir OpenRouter usando funciones, excepciones personalizadas y logging. |
-| `menu.py` | Menú interactivo para elegir y ejecutar los ejemplos desde la terminal. |
-| `requirements.txt` | Lista de dependencias necesarias para ejecutar el proyecto. |
-| `.gitignore` | Archivos y carpetas que no deben subirse al repositorio. |
+| Archivo                | Descripción                                                                                                |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `ejemplo2.py`          | Ejemplo inicial para consumir la API pública de Chuck Norris.                                              |
+| `ejemplo.py`           | Versión mejorada del consumo de Chuck Norris API con traducción, `dataclass`, logging y manejo de errores. |
+| `ejemplo3.py`          | Ejemplo de consumo de OpenRouter usando variables de entorno desde `.env`.                                 |
+| `ejemplo3-mejorado.py` | Versión más estructurada para consumir OpenRouter usando funciones, excepciones personalizadas y logging.  |
+| `menu.py`              | Menú interactivo para elegir y ejecutar los ejemplos desde la terminal.                                    |
+| `.env.example`         | Plantilla de variables de entorno sin credenciales reales.                                                 |
+| `requirements.txt`     | Lista de dependencias necesarias para ejecutar el proyecto.                                                |
+| `.gitignore`           | Archivos y carpetas que no deben subirse al repositorio.                                                   |
 
 ---
 
@@ -114,10 +129,10 @@ Con este proyecto podrás practicar:
 
 Antes de ejecutar el proyecto necesitas tener instalado:
 
-- Python 3.10 o superior.
-- pip.
-- Acceso a internet.
-- Una API Key de OpenRouter, solo para ejecutar los ejemplos relacionados con IA.
+* Python 3.10 o superior.
+* pip.
+* Acceso a internet.
+* Una API Key de OpenRouter, solo para ejecutar los ejemplos relacionados con IA.
 
 Puedes verificar tu versión de Python con:
 
@@ -146,25 +161,47 @@ Si aún no tienes el proyecto en GitHub, entra directamente a la carpeta donde e
 
 ---
 
-### 2. Crear un entorno virtual
+## Uso de entorno virtual para aislar dependencias
+
+Se recomienda ejecutar este proyecto dentro de un entorno virtual de Python.
+
+Un entorno virtual permite aislar las dependencias del proyecto para evitar conflictos con otras instalaciones de Python en el sistema. Esto es especialmente útil cuando trabajamos con librerías externas como `requests`, `python-dotenv` y `deep-translator`.
+
+### Crear entorno virtual
 
 En macOS o Linux:
 
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate
 ```
 
 En Windows:
 
 ```bash
 python -m venv .venv
+```
+
+### Activar entorno virtual
+
+En macOS o Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+En Windows:
+
+```bash
 .venv\Scripts\activate
 ```
 
----
+Cuando el entorno virtual está activo, la terminal debería mostrar algo similar a:
 
-### 3. Instalar dependencias
+```bash
+(.venv) user@MacBook-Pro Ejercicios_Python_API %
+```
+
+### Instalar dependencias dentro del entorno virtual
 
 Puedes instalar las dependencias manualmente:
 
@@ -172,19 +209,35 @@ Puedes instalar las dependencias manualmente:
 pip install requests python-dotenv deep-translator
 ```
 
-O crear un archivo `requirements.txt` con este contenido:
-
-```txt
-requests
-python-dotenv
-deep-translator
-```
-
-Luego instala todo con:
+O instalar todo desde `requirements.txt`:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+### Verificar dependencias instaladas
+
+```bash
+pip list
+```
+
+### Guardar dependencias del proyecto
+
+Si instalas nuevas librerías, puedes actualizar el archivo `requirements.txt` con:
+
+```bash
+pip freeze > requirements.txt
+```
+
+### Desactivar entorno virtual
+
+Cuando termines de trabajar en el proyecto, puedes desactivar el entorno virtual con:
+
+```bash
+deactivate
+```
+
+> Importante: la carpeta `.venv/` no debe subirse a GitHub. Por eso debe estar incluida en el archivo `.gitignore`.
 
 ---
 
@@ -218,13 +271,14 @@ MAX_TOKENS=300
 
 No subas el archivo `.env` a GitHub porque contiene información sensible como API Keys.
 
-Agrega este archivo `.gitignore`:
+Agrega este contenido al archivo `.gitignore`:
 
 ```gitignore
 .venv/
 .env
 __pycache__/
 *.pyc
+.DS_Store
 ```
 
 ---
@@ -311,11 +365,11 @@ El usuario puede ingresar el número de la opción deseada y el menú ejecutará
 
 Este archivo utiliza:
 
-- `pathlib` para ubicar los archivos dentro del proyecto.
-- `subprocess.run()` para ejecutar cada script.
-- `sys.executable` para usar el mismo intérprete de Python del entorno virtual activo.
-- Validación básica para detectar si un archivo no existe.
-- Manejo de errores cuando un script termina con un código de salida distinto de cero.
+* `pathlib` para ubicar los archivos dentro del proyecto.
+* `subprocess.run()` para ejecutar cada script.
+* `sys.executable` para usar el mismo intérprete de Python del entorno virtual activo.
+* Validación básica para detectar si un archivo no existe.
+* Manejo de errores cuando un script termina con un código de salida distinto de cero.
 
 Ejemplo de uso:
 
@@ -351,10 +405,10 @@ print(datos["value"])
 
 Es útil para entender:
 
-- Cómo hacer una petición `GET`.
-- Cómo revisar el código de estado.
-- Cómo convertir una respuesta a JSON.
-- Cómo acceder a campos específicos del diccionario.
+* Cómo hacer una petición `GET`.
+* Cómo revisar el código de estado.
+* Cómo convertir una respuesta a JSON.
+* Cómo acceder a campos específicos del diccionario.
 
 ---
 
@@ -364,12 +418,12 @@ Versión más profesional del consumo de la Chuck Norris API.
 
 Incluye:
 
-- Constantes para URL y timeout.
-- `dataclass` para representar el chiste.
-- Excepción personalizada `JokeAPIError`.
-- Traducción automática con `GoogleTranslator`.
-- Manejo de errores para timeout, errores HTTP, conexión, JSON inválido y claves faltantes.
-- Función `main()` como punto de entrada.
+* Constantes para URL y timeout.
+* `dataclass` para representar el chiste.
+* Excepción personalizada `JokeAPIError`.
+* Traducción automática con `GoogleTranslator`.
+* Manejo de errores para timeout, errores HTTP, conexión, JSON inválido y claves faltantes.
+* Función `main()` como punto de entrada.
 
 ---
 
@@ -379,12 +433,12 @@ Script para consumir OpenRouter cargando configuración desde `.env`.
 
 Incluye:
 
-- Lectura de variables de entorno.
-- Validación de configuración obligatoria.
-- Construcción de headers HTTP.
-- Construcción del payload con mensajes `system` y `user`.
-- Envío de petición `POST`.
-- Extracción del contenido generado por el modelo.
+* Lectura de variables de entorno.
+* Validación de configuración obligatoria.
+* Construcción de headers HTTP.
+* Construcción del payload con mensajes `system` y `user`.
+* Envío de petición `POST`.
+* Extracción del contenido generado por el modelo.
 
 ---
 
@@ -394,14 +448,14 @@ Versión estructurada del ejemplo de OpenRouter.
 
 Incluye:
 
-- Función `get_api_key()`.
-- Función `build_headers()`.
-- Función `build_payload()`.
-- Función `send_request()`.
-- Función `extract_model_response()`.
-- Función `ask_model()`.
-- Excepción personalizada `OpenRouterAPIError`.
-- Logging para registrar el estado de la ejecución.
+* Función `get_api_key()`.
+* Función `build_headers()`.
+* Función `build_payload()`.
+* Función `send_request()`.
+* Función `extract_model_response()`.
+* Función `ask_model()`.
+* Excepción personalizada `OpenRouterAPIError`.
+* Logging para registrar el estado de la ejecución.
 
 Esta versión es la más cercana a una estructura reutilizable para futuros proyectos.
 
@@ -415,12 +469,12 @@ Permite ejecutar los diferentes ejemplos sin escribir manualmente el nombre del 
 
 Incluye:
 
-- Diccionario `EXAMPLES` con las opciones disponibles.
-- Función `show_menu()` para mostrar las opciones.
-- Función `run_example()` para ejecutar el archivo seleccionado.
-- Función `main()` con un ciclo `while True` para mantener activo el menú hasta que el usuario seleccione salir.
-- Validación de opciones inválidas.
-- Manejo de interrupción con `KeyboardInterrupt`.
+* Diccionario `EXAMPLES` con las opciones disponibles.
+* Función `show_menu()` para mostrar las opciones.
+* Función `run_example()` para ejecutar el archivo seleccionado.
+* Función `main()` con un ciclo `while True` para mantener activo el menú hasta que el usuario seleccione salir.
+* Validación de opciones inválidas.
+* Manejo de interrupción con `KeyboardInterrupt`.
 
 ---
 
@@ -474,30 +528,31 @@ Ejecutando: ejemplo.py
 
 El proyecto contempla errores comunes al consumir APIs:
 
-| Error | Posible causa | Solución |
-|---|---|---|
-| `Timeout` | La API tarda demasiado en responder | Aumentar el timeout o intentar más tarde |
-| `HTTPError` | La API responde con error 4xx o 5xx | Revisar URL, API Key o permisos |
-| `RequestException` | Problema de conexión | Verificar internet o disponibilidad del servicio |
-| `KeyError` | La respuesta JSON no tiene el campo esperado | Revisar estructura de la respuesta |
-| `ValueError` | JSON inválido o configuración faltante | Validar `.env` y respuesta recibida |
+| Error                | Posible causa                                         | Solución                                               |
+| -------------------- | ----------------------------------------------------- | ------------------------------------------------------ |
+| `Timeout`            | La API tarda demasiado en responder                   | Aumentar el timeout o intentar más tarde               |
+| `HTTPError`          | La API responde con error 4xx o 5xx                   | Revisar URL, API Key o permisos                        |
+| `RequestException`   | Problema de conexión                                  | Verificar internet o disponibilidad del servicio       |
+| `KeyError`           | La respuesta JSON no tiene el campo esperado          | Revisar estructura de la respuesta                     |
+| `ValueError`         | JSON inválido o configuración faltante                | Validar `.env` y respuesta recibida                    |
 | `CalledProcessError` | Un script ejecutado desde `menu.py` terminó con error | Revisar el mensaje mostrado por el script seleccionado |
 
 ---
 
 ## Buenas prácticas aplicadas
 
-- Uso de entorno virtual para aislar dependencias.
-- Separación de configuración mediante variables de entorno.
-- Uso de `timeout` en peticiones HTTP.
-- Manejo de excepciones específicas.
-- Uso de constantes para URLs y configuración.
-- Uso de funciones pequeñas y reutilizables.
-- Uso de `logging` en lugar de solo `print` para eventos internos.
-- Protección de credenciales mediante `.env` y `.gitignore`.
-- Uso de `.env.example` para documentar variables sin exponer secretos.
-- Menú interactivo como punto de entrada para mejorar la experiencia de uso.
-- Uso de `sys.executable` para respetar el entorno virtual activo.
+* Uso de entorno virtual para aislar dependencias.
+* Separación de configuración mediante variables de entorno.
+* Uso de `timeout` en peticiones HTTP.
+* Manejo de excepciones específicas.
+* Uso de constantes para URLs y configuración.
+* Uso de funciones pequeñas y reutilizables.
+* Uso de `logging` en lugar de solo `print` para eventos internos.
+* Protección de credenciales mediante `.env` y `.gitignore`.
+* Uso de `.env.example` para documentar variables sin exponer secretos.
+* Menú interactivo como punto de entrada para mejorar la experiencia de uso.
+* Uso de `sys.executable` para respetar el entorno virtual activo.
+* Uso de `requirements.txt` para instalar dependencias de forma reproducible.
 
 ---
 
@@ -505,16 +560,16 @@ El proyecto contempla errores comunes al consumir APIs:
 
 Algunas mejoras que se podrían agregar al proyecto:
 
-- Permitir que el usuario escriba su propio prompt por consola.
-- Guardar las respuestas en un archivo `.txt` o `.json`.
-- Agregar pruebas unitarias con `pytest`.
-- Crear una interfaz web simple con Streamlit o Flask.
-- Validar variables de entorno con una función dedicada.
-- Crear un módulo `services/` para separar lógica de APIs.
-- Agregar tipado más estricto y documentación de funciones.
-- Preparar el proyecto para publicarlo como repositorio educativo en GitHub.
-- Permitir que el menú ejecute solo ejemplos locales si no existe API Key.
-- Agregar una opción al menú para verificar configuración del `.env`.
+* Permitir que el usuario escriba su propio prompt por consola.
+* Guardar las respuestas en un archivo `.txt` o `.json`.
+* Agregar pruebas unitarias con `pytest`.
+* Crear una interfaz web simple con Streamlit o Flask.
+* Validar variables de entorno con una función dedicada.
+* Crear un módulo `services/` para separar lógica de APIs.
+* Agregar tipado más estricto y documentación de funciones.
+* Preparar el proyecto para publicarlo como repositorio educativo en GitHub.
+* Permitir que el menú ejecute solo ejemplos locales si no existe API Key.
+* Agregar una opción al menú para verificar configuración del `.env`.
 
 ---
 
