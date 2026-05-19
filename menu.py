@@ -1,8 +1,8 @@
 """
 Menú interactivo para ejecutar ejercicios de Python sobre consumo de APIs.
 
-Este archivo permite elegir qué ejemplo ejecutar sin tener que escribir
-manualmente el nombre de cada script en la terminal.
+Este archivo muestra un menú interactivo para ejecutar los ejercicios
+de consumo de APIs en Python.
 """
 
 import subprocess
@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 EXAMPLES = {
     "1": {
-        "name": "Ejemplo 1 - Chuck Norris API básico",
+        "name": "Ejemplo 1 - Chuck Norris API mejorado",
         "file": "ejemplo.py",
         "description": "Consume la API de Chuck Norris y muestra un chiste aleatorio."
     },
@@ -33,16 +33,27 @@ EXAMPLES = {
         "name": "Ejemplo 4 - OpenRouter mejorado",
         "file": "ejemplo3-mejorado.py",
         "description": "Ejecuta la versión mejorada con funciones, logging y manejo de errores."
+    },
+     "5": {
+        "name": "Ejemplo 5 - OpenRouter mejorado con prompt personalizado",
+        "file": "ejemplo3-mejorado.py",
+        "description": "Permite escribir un prompt por consola y enviarlo a OpenRouter."
     }
 }
 
 
-def show_menu() -> None:
-    """Muestra el menú principal."""
+def show_header() -> None:
+    """Muestra el encabezado del programa."""
 
     print("\n===================================")
-    print("   MENÚ DE EJERCICIOS PYTHON API")
+    print("   PYTHON APIs: CHUCK + OPENROUTER")
     print("===================================")
+
+
+def show_menu() -> None:
+    """Muestra el menú principal con los ejercicios disponibles."""
+
+    show_header()
 
     for option, example in EXAMPLES.items():
         print(f"{option}. {example['name']}")
@@ -64,7 +75,7 @@ def run_example(file_name: str) -> None:
 
     if not file_path.exists():
         print(f"\nError: No se encontró el archivo '{file_name}'.")
-        print("Verifica que este menú esté en la misma carpeta que los ejemplos.")
+        print("Verifica que el archivo exista en la raíz del proyecto.")
         return
 
     print(f"\nEjecutando: {file_name}")
@@ -84,16 +95,27 @@ def run_example(file_name: str) -> None:
         print("\nEjecución interrumpida por el usuario.")
 
 
+def read_option() -> str:
+    """
+    Lee la opción ingresada por el usuario.
+
+    Returns:
+        Opción seleccionada como texto.
+    """
+
+    return input("\nSelecciona una opción: ").strip()
+
+
 def main() -> None:
-    """Función principal del menú interactivo."""
+    """Función principal del programa."""
 
     while True:
         show_menu()
 
-        option = input("\nSelecciona una opción: ").strip()
+        option = read_option()
 
         if option == "0":
-            print("\nSaliendo del menú. ¡Hasta luego!")
+            print("\nSaliendo del programa. ¡Hasta luego!")
             break
 
         example = EXAMPLES.get(option)
