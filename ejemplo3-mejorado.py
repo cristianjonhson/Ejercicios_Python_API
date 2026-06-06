@@ -1,11 +1,12 @@
 import os
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import requests
 from requests import Response
 from requests.exceptions import HTTPError, RequestException, Timeout
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
@@ -55,6 +56,18 @@ def get_api_key() -> str:
     return api_key
 
 
+def validate_config() -> None:
+    """
+    Valida que las variables principales estén configuradas.
+    """
+
+    if not url:
+        raise OpenRouterAPIError("No se encontró OPENROUTER_URL.")
+
+    if not model:
+        raise OpenRouterAPIError("No se encontró OPENROUTER_MODEL.")
+
+
 def build_headers(api_key: str) -> Dict[str, str]:
     """
     Construye los headers necesarios para consumir la API.
@@ -63,8 +76,8 @@ def build_headers(api_key: str) -> Dict[str, str]:
     return {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://mi-sitio.cl",
-        "X-OpenRouter-Title": "Clase APIs IA"
+        "HTTP-Referer": referer,
+        "X-OpenRouter-Title": app_name
     }
 
 
@@ -85,7 +98,8 @@ def build_payload(prompt: str) -> Dict[str, Any]:
                 "content": prompt
             }
         ],
-        "temperature": 0.3
+        "temperature": 0.3,
+        "max_tokens": max_tokens
     }
 
 
@@ -109,17 +123,30 @@ def send_request(headers: Dict[str, str], payload: Dict[str, Any]) -> Dict[str, 
         return response.json()
 
     except Timeout as error:
-        raise OpenRouterAPIError("La solicitud superó el tiempo máximo de espera.") from error
+        raise OpenRouterAPIError(
+            "La solicitud superó el tiempo máximo de espera."
+        ) from error
 
     except HTTPError as error:
-        error_message = response.text if response is not None else str(error)
-        raise OpenRouterAPIError(f"Error HTTP al consumir OpenRouter: {error_message}") from error
+        error_message = (
+            error.response.text
+            if error.response is not None
+            else str(error)
+        )
+
+        raise OpenRouterAPIError(
+            f"Error HTTP al consumir OpenRouter: {error_message}"
+        ) from error
 
     except RequestException as error:
-        raise OpenRouterAPIError(f"Error de conexión con OpenRouter: {error}") from error
+        raise OpenRouterAPIError(
+            f"Error de conexión con OpenRouter: {error}"
+        ) from error
 
     except ValueError as error:
-        raise OpenRouterAPIError("La respuesta recibida no es un JSON válido.") from error
+        raise OpenRouterAPIError(
+            "La respuesta recibida no es un JSON válido."
+        ) from error
 
 
 def extract_model_response(data: Dict[str, Any]) -> str:
@@ -131,16 +158,22 @@ def extract_model_response(data: Dict[str, Any]) -> str:
         return data["choices"][0]["message"]["content"]
 
     except KeyError as error:
-        raise OpenRouterAPIError(f"Falta una clave esperada en la respuesta: {error}") from error
+        raise OpenRouterAPIError(
+            f"Falta una clave esperada en la respuesta: {error}"
+        ) from error
 
     except IndexError as error:
-        raise OpenRouterAPIError("La respuesta no contiene resultados en 'choices'.") from error
+        raise OpenRouterAPIError(
+            "La respuesta no contiene resultados en 'choices'."
+        ) from error
 
 
 def ask_model(prompt: str) -> str:
     """
     Función principal para enviar un prompt al modelo y obtener la respuesta.
     """
+
+    validate_config()
 
     api_key = get_api_key()
     headers = build_headers(api_key)
@@ -156,6 +189,7 @@ def main() -> None:
 
     try:
         respuesta = ask_model(prompt)
+
         print("Respuesta del modelo:")
         print(respuesta)
 
