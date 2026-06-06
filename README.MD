@@ -2,7 +2,7 @@
 
 Proyecto educativo en Python para aprender a consumir APIs REST, procesar respuestas JSON, manejar errores HTTP, trabajar con variables de entorno y enviar prompts a un modelo de IA mediante OpenRouter.
 
-El repositorio contiene ejemplos progresivos: primero se consume una API pública de chistes de Chuck Norris, luego se mejora el manejo de errores y traducción, y finalmente se integra una API de inteligencia artificial usando OpenRouter.
+El repositorio contiene ejemplos progresivos: primero se consume una API pública de chistes de Chuck Norris, luego se mejora el manejo de errores y traducción, finalmente se integra una API de inteligencia artificial usando OpenRouter y se agrega un menú interactivo para ejecutar los ejercicios desde consola.
 
 ---
 
@@ -16,6 +16,7 @@ El repositorio contiene ejemplos progresivos: primero se consume una API públic
 - [Instalación](#instalación)
 - [Configuración de variables de entorno](#configuración-de-variables-de-entorno)
 - [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
+- [Menú interactivo](#menú-interactivo)
 - [Explicación de los archivos](#explicación-de-los-archivos)
 - [Ejemplo de salida esperada](#ejemplo-de-salida-esperada)
 - [Manejo de errores](#manejo-de-errores)
@@ -29,13 +30,16 @@ El repositorio contiene ejemplos progresivos: primero se consume una API públic
 
 Este proyecto muestra cómo consumir servicios externos desde Python utilizando la librería `requests`.
 
-Incluye dos casos principales:
+Incluye tres casos principales:
 
 1. **Consumo de una API pública**
    Se obtiene un chiste aleatorio desde la API de Chuck Norris y se muestra su contenido en consola.
 
 2. **Consumo de una API de IA**
    Se realiza una petición a OpenRouter para enviar un prompt y obtener una respuesta generada por un modelo de lenguaje.
+
+3. **Ejecución mediante menú interactivo**
+   Se agrega un archivo `menu.py` que permite elegir desde la terminal qué ejemplo ejecutar, sin escribir manualmente el nombre de cada script.
 
 Además, el proyecto incluye versiones mejoradas con manejo de errores, uso de funciones, clases personalizadas, logging, timeout y variables de entorno.
 
@@ -55,6 +59,8 @@ Con este proyecto podrás practicar:
 - Separación básica de responsabilidades en funciones.
 - Uso de `logging` para registrar información de ejecución.
 - Buenas prácticas para proteger API Keys.
+- Ejecución de scripts Python mediante un menú interactivo.
+- Uso de `subprocess` y `sys.executable` para ejecutar archivos desde otro script.
 
 ---
 
@@ -69,6 +75,8 @@ Con este proyecto podrás practicar:
 | OpenRouter API | Acceso a modelos de inteligencia artificial |
 | Chuck Norris API | API pública para obtener chistes aleatorios |
 | Logging | Registro de eventos y errores |
+| subprocess | Ejecución de scripts Python desde el menú interactivo |
+| pathlib | Manejo de rutas de archivos de forma portable |
 
 ---
 
@@ -76,13 +84,16 @@ Con este proyecto podrás practicar:
 
 ```bash
 .
+├── .venv                          # No subir a GitHub
+├── .env                           # No subir a GitHub
+├── .gitignore
 ├── ejemplo.py
 ├── ejemplo2.py
 ├── ejemplo3.py
 ├── ejemplo3-mejorado.py
+├── menu.py
 ├── README.md
-├── requirements.txt          # Opcional, recomendado
-└── .env                      # No subir a GitHub
+└── requirements.txt
 ```
 
 ### Descripción rápida
@@ -93,6 +104,9 @@ Con este proyecto podrás practicar:
 | `ejemplo.py` | Versión mejorada del consumo de Chuck Norris API con traducción, `dataclass`, logging y manejo de errores. |
 | `ejemplo3.py` | Ejemplo de consumo de OpenRouter usando variables de entorno desde `.env`. |
 | `ejemplo3-mejorado.py` | Versión más estructurada para consumir OpenRouter usando funciones, excepciones personalizadas y logging. |
+| `menu.py` | Menú interactivo para elegir y ejecutar los ejemplos desde la terminal. |
+| `requirements.txt` | Lista de dependencias necesarias para ejecutar el proyecto. |
+| `.gitignore` | Archivos y carpetas que no deben subirse al repositorio. |
 
 ---
 
@@ -188,6 +202,18 @@ TIMEOUT_SECONDS=30
 MAX_TOKENS=300
 ```
 
+También se recomienda crear un archivo `.env.example` para documentar las variables necesarias sin exponer credenciales reales:
+
+```env
+OPENROUTER_API_KEY=tu_api_key_aqui
+OPENROUTER_URL=https://openrouter.ai/api/v1/chat/completions
+OPENROUTER_MODEL=openai/gpt-chat-latest
+OPENROUTER_REFERER=https://mi-sitio.cl
+OPENROUTER_APP_NAME=Clase APIs IA
+TIMEOUT_SECONDS=30
+MAX_TOKENS=300
+```
+
 ### Importante
 
 No subas el archivo `.env` a GitHub porque contiene información sensible como API Keys.
@@ -243,7 +269,71 @@ python ejemplo3-mejorado.py
 
 Esta versión organiza el código en funciones, valida la API Key, construye headers y payload por separado, maneja errores HTTP y extrae la respuesta del modelo.
 
+---
+
+### Ejecutar el menú interactivo
+
+```bash
+python menu.py
+```
+
+El menú permite seleccionar qué ejemplo ejecutar desde una lista de opciones.
+
 > Nota: se recomienda evitar dejar API Keys directamente en el código. Lo ideal es usar siempre variables de entorno o un archivo `.env` excluido de Git.
+
+---
+
+## Menú interactivo
+
+El archivo `menu.py` permite ejecutar los ejercicios desde una sola entrada principal.
+
+Al ejecutar:
+
+```bash
+python menu.py
+```
+
+Se mostrará un menú similar a este:
+
+```text
+===================================
+   MENÚ DE EJERCICIOS PYTHON API
+===================================
+1. Ejemplo 1 - Chuck Norris API básico
+2. Ejemplo 2 - Chuck Norris API exploración JSON
+3. Ejemplo 3 - OpenRouter básico con .env
+4. Ejemplo 4 - OpenRouter mejorado
+0. Salir
+===================================
+```
+
+El usuario puede ingresar el número de la opción deseada y el menú ejecutará el archivo correspondiente.
+
+Este archivo utiliza:
+
+- `pathlib` para ubicar los archivos dentro del proyecto.
+- `subprocess.run()` para ejecutar cada script.
+- `sys.executable` para usar el mismo intérprete de Python del entorno virtual activo.
+- Validación básica para detectar si un archivo no existe.
+- Manejo de errores cuando un script termina con un código de salida distinto de cero.
+
+Ejemplo de uso:
+
+```bash
+python menu.py
+```
+
+Luego seleccionar:
+
+```text
+4
+```
+
+Para ejecutar:
+
+```bash
+ejemplo3-mejorado.py
+```
 
 ---
 
@@ -317,6 +407,23 @@ Esta versión es la más cercana a una estructura reutilizable para futuros proy
 
 ---
 
+### `menu.py`
+
+Archivo que funciona como punto de entrada interactivo del proyecto.
+
+Permite ejecutar los diferentes ejemplos sin escribir manualmente el nombre del archivo en la terminal.
+
+Incluye:
+
+- Diccionario `EXAMPLES` con las opciones disponibles.
+- Función `show_menu()` para mostrar las opciones.
+- Función `run_example()` para ejecutar el archivo seleccionado.
+- Función `main()` con un ciclo `while True` para mantener activo el menú hasta que el usuario seleccione salir.
+- Validación de opciones inválidas.
+- Manejo de interrupción con `KeyboardInterrupt`.
+
+---
+
 ## Ejemplo de salida esperada
 
 ### Para `ejemplo.py`
@@ -342,6 +449,25 @@ Define reglas para enviar solicitudes y recibir respuestas.
 Se usa para integrar servicios, datos o funcionalidades externas.
 ```
 
+### Para `menu.py`
+
+```bash
+===================================
+   MENÚ DE EJERCICIOS PYTHON API
+===================================
+1. Ejemplo 1 - Chuck Norris API básico
+2. Ejemplo 2 - Chuck Norris API exploración JSON
+3. Ejemplo 3 - OpenRouter básico con .env
+4. Ejemplo 4 - OpenRouter mejorado
+0. Salir
+===================================
+
+Selecciona una opción: 1
+
+Ejecutando: ejemplo.py
+-----------------------------------
+```
+
 ---
 
 ## Manejo de errores
@@ -355,6 +481,7 @@ El proyecto contempla errores comunes al consumir APIs:
 | `RequestException` | Problema de conexión | Verificar internet o disponibilidad del servicio |
 | `KeyError` | La respuesta JSON no tiene el campo esperado | Revisar estructura de la respuesta |
 | `ValueError` | JSON inválido o configuración faltante | Validar `.env` y respuesta recibida |
+| `CalledProcessError` | Un script ejecutado desde `menu.py` terminó con error | Revisar el mensaje mostrado por el script seleccionado |
 
 ---
 
@@ -368,6 +495,9 @@ El proyecto contempla errores comunes al consumir APIs:
 - Uso de funciones pequeñas y reutilizables.
 - Uso de `logging` en lugar de solo `print` para eventos internos.
 - Protección de credenciales mediante `.env` y `.gitignore`.
+- Uso de `.env.example` para documentar variables sin exponer secretos.
+- Menú interactivo como punto de entrada para mejorar la experiencia de uso.
+- Uso de `sys.executable` para respetar el entorno virtual activo.
 
 ---
 
@@ -375,7 +505,6 @@ El proyecto contempla errores comunes al consumir APIs:
 
 Algunas mejoras que se podrían agregar al proyecto:
 
-- Crear un menú interactivo para elegir qué ejemplo ejecutar.
 - Permitir que el usuario escriba su propio prompt por consola.
 - Guardar las respuestas en un archivo `.txt` o `.json`.
 - Agregar pruebas unitarias con `pytest`.
@@ -384,6 +513,8 @@ Algunas mejoras que se podrían agregar al proyecto:
 - Crear un módulo `services/` para separar lógica de APIs.
 - Agregar tipado más estricto y documentación de funciones.
 - Preparar el proyecto para publicarlo como repositorio educativo en GitHub.
+- Permitir que el menú ejecute solo ejemplos locales si no existe API Key.
+- Agregar una opción al menú para verificar configuración del `.env`.
 
 ---
 
