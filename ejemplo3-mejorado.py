@@ -5,14 +5,22 @@ from typing import Any, Dict, List
 import requests
 from requests import Response
 from requests.exceptions import HTTPError, RequestException, Timeout
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-
-os.environ["OPENROUTER_API_KEY"] = "TU_API_KEY_AQUI"
-OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL_NAME = "openai/gpt-chat-latest"
-TIMEOUT_SECONDS = 30
-
+#os.environ["OPENROUTER_API_KEY"] = "TU_API_KEY_AQUI"
+#OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+#MODEL_NAME = "openai/gpt-chat-latest"
+#TIMEOUT_SECONDS = 30
+api_key = os.getenv("OPENROUTER_API_KEY")
+url = os.getenv("OPENROUTER_URL")
+model = os.getenv("OPENROUTER_MODEL")
+referer = os.getenv("OPENROUTER_REFERER")
+app_name = os.getenv("OPENROUTER_APP_NAME")
+timeout = int(os.getenv("TIMEOUT_SECONDS", 30))
+max_tokens = int(os.getenv("MAX_TOKENS", 300))
 
 logging.basicConfig(
     level=logging.INFO,
@@ -66,7 +74,7 @@ def build_payload(prompt: str) -> Dict[str, Any]:
     """
 
     return {
-        "model": MODEL_NAME,
+        "model": model,
         "messages": [
             {
                 "role": "system",
@@ -88,10 +96,10 @@ def send_request(headers: Dict[str, str], payload: Dict[str, Any]) -> Dict[str, 
 
     try:
         response: Response = requests.post(
-            OPENROUTER_URL,
+            url,
             headers=headers,
             json=payload,
-            timeout=TIMEOUT_SECONDS
+            timeout=timeout
         )
 
         logger.info("Código de estado recibido: %s", response.status_code)
